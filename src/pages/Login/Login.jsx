@@ -5,11 +5,16 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const from = location.state?.from?.pathname || "/";
   const { signIn } = useContext(AuthContext);
 
   useEffect(() => {
@@ -36,12 +41,25 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        Swal.fire({
+          title: 'logged in successfully',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        });
+        navigate(from, {replace: true })
       })
       .catch((e) => console.log(e));
   };
 
   return (
     <div className="hero min-h-screen bg-base-200">
+      <Helmet>
+        <title>Bistro Boss | Login</title>
+      </Helmet>
       <div className="hero-content flex-col lg:flex-row">
         <div className="text-center md:w-1/2 lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>
@@ -97,12 +115,19 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary"
                 value="Login"
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
+                disabled={false}
               />
             </div>
             <p>
               <small>
-                New here ? <Link to="/signup" className="font-bold text-sm hover:text-lg transition-all duration-500 ease-out">Create an account</Link>
+                New here ?{" "}
+                <Link
+                  to="/signup"
+                  className="font-bold text-sm hover:text-lg transition-all duration-500 ease-out"
+                >
+                  Create an account
+                </Link>
               </small>
             </p>
           </form>
