@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
-import { HiShoppingCart } from 'react-icons/hi';
+import { HiShoppingCart } from "react-icons/hi";
 import useCart from "../../../hooks/useCart";
 
 const NavBar = () => {
@@ -13,7 +13,6 @@ const NavBar = () => {
       .then(() => {})
       .catch((e) => console.log(e));
   };
-
 
   const navOptions = (
     <>
@@ -29,23 +28,26 @@ const NavBar = () => {
       <li>
         <Link to="/secret">Secret</Link>
       </li>
-      <li>
-        <Link to="/dashboard/mycart">
-          <button className="btn">
-            <HiShoppingCart className="mr-1"/>
-            <div className="badge badge-secondary">+{cart?.length || 0}</div>
-          </button>
-        </Link>
-      </li>
+      {user && (
+        <li>
+          <Link to="/dashboard/mycart">
+            <button className="btn">
+              <HiShoppingCart className="mr-1" />
+              <div className="badge badge-secondary">+{cart?.length || 0}</div>
+            </button>
+          </Link>
+        </li>
+      )}
       <li>
         <a>About</a>
       </li>
       {user ? (
         <>
           <li>
-            <a><button onClick={handleLogOut} className="btn btn-ghost">
-              Logout
-            </button>
+            <a>
+              <button onClick={handleLogOut} className="btn btn-ghost">
+                Logout
+              </button>
             </a>
           </li>
           <li>
@@ -63,7 +65,7 @@ const NavBar = () => {
   );
   return (
     <>
-      <div className="navbar bg-black text-white fixed z-10 bg-opacity-30 max-w-screen-xl mx-auto">
+      <div className="navbar bg-black text-white fixed z-10 bg-opacity-30 max-w-screen-2xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">

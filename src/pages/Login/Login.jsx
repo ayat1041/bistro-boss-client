@@ -8,6 +8,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -42,15 +43,15 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         Swal.fire({
-          title: 'logged in successfully',
+          title: "logged in successfully",
           showClass: {
-            popup: 'animate__animated animate__fadeInDown'
+            popup: "animate__animated animate__fadeInDown",
           },
           hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          }
+            popup: "animate__animated animate__fadeOutUp",
+          },
         });
-        navigate(from, {replace: true })
+        navigate(from, { replace: true });
       })
       .catch((e) => console.log(e));
   };
@@ -115,8 +116,8 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary"
                 value="Login"
-                // disabled={btnDisabled}
-                disabled={false}
+                disabled={btnDisabled}
+                // disabled={false}
               />
             </div>
             <p>
@@ -131,6 +132,7 @@ const Login = () => {
               </small>
             </p>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>
